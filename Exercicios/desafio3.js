@@ -1,7 +1,7 @@
 /* 
     Faça um programa que calcule e imprima o salário a ser transferido para um funcionário.
     Para realizar o calculo receba o valor bruto do salário e o adicional dos beneficios.
-    I sakarui a ser transferido é calculado da seguinte maneira:
+    o salario a ser transferido é calculado da seguinte maneira:
 
     Valor Bruto do salário - percentual do imposto medianta a faixa salarial + adicional dos benefícios
         ((salario - 5%) + Beneficios)
@@ -14,20 +14,26 @@
 
 const { gets, print } = require('./funcoes-aux');
 
-let salarioBruto = gets();
-let adicional = 300;
-let imposto = null;
+let valorSalario = gets();
+let valorBeneficios = gets();
 
-if (imposto === null) {
-    if (salarioBruto <= 1100) {
-        let pagamento = ((salarioBruto - (salarioBruto * 0.05)) + adicional)
-        print(`O seu salário será de ${pagamento}.`)
-    } else if (salarioBruto <= 2500) {
-        pagamento = ((salarioBruto - (salarioBruto * 0.10)) + adicional)
-        print(`O seu salário será de ${pagamento}.`)
+function calcularPorcentagem(valor, percentual) {
+    let porcentagem = valor * (percentual / 100)
+    return porcentagem
+}
+
+function pegarAliquota(salario) {
+
+    if (salario <= 1100) {
+        return 5
+    } else if (salario <= 2500) {
+        return 10
     } else {
-        pagamento = ((salarioBruto - (salarioBruto * 0.15)) + adicional)
-        print(`O seu salário será de ${pagamento}.`)
+        return 15
     }
 }
 
+const aliquotasImposto = pegarAliquota(valorSalario);
+const valorComImposto = valorSalario - calcularPorcentagem(valorSalario, aliquotasImposto);
+const valorATransferir = valorComImposto + valorBeneficios
+print(valorATransferir);

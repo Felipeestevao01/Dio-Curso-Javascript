@@ -1,4 +1,4 @@
-const entradas = [3000]
+const entradas = [5000, 300]
 let i = 0;
 
 function gets() {
